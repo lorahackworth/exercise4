@@ -4,7 +4,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
 
-        Map<String, ArrayList<Double>> myCityTempMap = new HashMap<>();
+        Map<String, Double> myCityTempMap = new HashMap<>();
 
         Scanner input = new Scanner(System.in);
 
@@ -14,33 +14,33 @@ public class Main {
 
         // stores the user's city choice and doesn't end until user types "END"
         while(!(userChoice.equals("END"))){
-            myCityTempMap.put(userChoice, new ArrayList<Double>(0));
+            myCityTempMap.put(userChoice, 0.0);
             System.out.println("Enter a city of your choice (OR TYPE END TO END): ");
             userChoice = input.nextLine();
         }
-        System.out.println(myCityTempMap);
-
-
 
         // main loop for temperature
-        for (Map.Entry<String,ArrayList<Double>> entry : myCityTempMap.entrySet()) {
+        for (Map.Entry<String,Double> entry : myCityTempMap.entrySet()) {
             // gets string key (the city name) from the list and prints it out so user knows
             // what city they're printing temperature out for
             String key = entry.getKey();
-            System.out.println("Please print out the temperature for: " + key);
+            System.out.println("\nPlease print out the temperature for: " + key);
 
             //uses temperature method to calculate
             Double sum = temperature(myCityTempMap);
 
-            System.out.println("Average temperature for " + key + " was " + sum);
+            System.out.println("\nAverage temperature for " + key + " was " + sum);
 
+            myCityTempMap.put(key, sum);
         }
 
-        System.out.println(myCityTempMap);
+        //display method
+        display(myCityTempMap);
 
     }
 
-    static Double temperature(Map<String,ArrayList<Double>> a){
+    //calculates the average temperature for each city
+    static Double temperature(Map<String,Double> a){
         Scanner input = new Scanner(System.in);
         double sum = 0;
         for (int i = 0; i < 5; i++) {
@@ -54,6 +54,12 @@ public class Main {
         return sum;
     }
 
-}
+    //displays the final average temps and cities
+    static void display(Map<String, Double> a){
+        System.out.println("\nThe averages for the cities you chose are as follows...");
+        System.out.println(a);
+        System.out.println("\n--> See you again soon! <--");
+    }
 
+}
 
